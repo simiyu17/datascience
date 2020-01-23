@@ -1,0 +1,6 @@
+
+Dear ${NAME}, 
+This is an email which is sent using Python. Isn't that owesome?!
+
+Have a nice day ahead! 
+Cheers
