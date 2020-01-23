@@ -1,4 +1,4 @@
-# Send email from excel files
+# Send email from text template to emails saved in excel files
 Developed in python -v : 3.7.4 environment
 
 Open terminal/windows cmd and run 'py send_notifications.py' and follow the prompts carefully
