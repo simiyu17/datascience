@@ -1,4 +1,4 @@
-# Move Or Delete files
+# Filter Excel files
 Developed in python -v : 3.7.4 environment
 
 Open terminal/windows cmd and run 'py excel_filter.py' and follow the prompts carefully
