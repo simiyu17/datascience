@@ -1,5 +1,5 @@
 # Filter Excel files
-Developed in python -v : 3.7.4 environment
+Developed in python -v : 3.7.4 environment. So make sure to install python and pandas library
 
 Open terminal/windows cmd and run 'py excel_filter.py' and follow the prompts carefully
 
