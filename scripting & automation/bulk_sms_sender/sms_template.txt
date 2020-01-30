@@ -1,0 +1,5 @@
+
+Dear ${NAME}, 
+This is an sms which is sent using Python & Twilio. Isn't that owesome?!
+Have a nice day ahead! 
+Cheers
