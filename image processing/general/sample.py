@@ -6,6 +6,7 @@ Created on Wed Feb 26 00:05:57 2020
 """
 
 import cv2
+from google.colab.patches import cv2_imshow
 
 img = cv2.imread('flower.jpg')
 
