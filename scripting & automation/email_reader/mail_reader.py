@@ -29,8 +29,8 @@ def read(username, password, sender_of_interest=None):
         e_id = e_id.decode('utf-8')
         _, response = imap.uid('fetch', e_id, '(RFC822)')
         html = response[0][1].decode('utf-8')
-       # email_message = email.message_from_string(html)
-        email_message = email.message_from_bytes(html)
+        email_message = email.message_from_string(html)
+        #email_message = email.message_from_bytes(html)
         data_dict['mail_to'] = email_message['To']
         data_dict['mail_subject'] = email_message['Subject']
         data_dict['mail_from'] = email.utils.parseaddr(email_message['From'])
@@ -57,7 +57,7 @@ def read(username, password, sender_of_interest=None):
 
 
 def main():
-    read('**********@gmail.com', 'password***************')
+    read('kaziyadanonline@gmail.com', 'upjulianexdanix17')
 
 
 if __name__ == '__main__':
