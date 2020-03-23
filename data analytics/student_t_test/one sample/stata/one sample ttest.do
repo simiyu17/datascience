@@ -7,7 +7,7 @@ set more off
 
 
 //Import data
-import excel "H:\projects\fun\datascience\data analytics\student_t_test\data\t-test2.xls", sheet("One-sample t-test") firstrow
+import excel "student_t_test\data\t-test2.xls", sheet("One-sample t-test") firstrow
 
 
 //Browse the imported dataset
