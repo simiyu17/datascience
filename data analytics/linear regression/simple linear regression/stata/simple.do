@@ -1,8 +1,9 @@
 
+//ssc inst extremes 
 clear all
 set more off
 
-use "regression_auto.dta", clear
+use "H:\projects\fun\datascience\data analytics\linear regression\simple linear regression\stata\regression_auto.dta", clear
 
 global ylist mpg
 global xlist weight1
@@ -35,6 +36,27 @@ Assumption #7: Finally, you need to check that the residuals (errors) of the reg
 
 */
 
+*Assumption #5: There should be no significant outliers. 
+*check for mpg outliers
+
+
+*Let's plot a box plot
+graph hbox mpg weight1
+
+egen Q1_mpg= pctile(mpg), p(25)
+egen Q3_mpg= pctile(mpg), p(75)
+egen  IC_mpg= iqr(mpg)
+gen touse=1 if (mpg< Q1_mpg-1.5*IC_mpg| mpg> Q3_mpg+1.5*IC_mpg) & missing(mpg)==0
+recode touse . =0
+tab touse
+
+* or use extremes command as follows
+extremes mpg, iqr(1.5)
+
+*Drop the outliers
+drop if (mpg< Q1_mpg-1.5*IC_mpg | mpg> Q3_mpg+1.5*IC_mpg)
+
+
 *Assumption #3: There needs to be a linear relationship between the dependent and independent variables. Let’s plot a scatter plot and check
 * Correlation
 correlate $ylist $xlist
@@ -52,9 +74,6 @@ tsset t
 reg $ylist $xlist
 
 dwstat
-
-*Assumption #5: There should be no significant outliers.  
-graph hbox mpg weight1
 
 *Assumption #6: Your data needs to show homoscedasticity, which is where the variances along the line of best fit remain similar as you move along the line.
 rvfplot, yline(0)

@@ -2,10 +2,10 @@
 clear all
 set more off
 
-use "regression_auto.dta", clear
+use "H:\projects\fun\datascience\data analytics\linear regression\simple linear regression\stata\regression_auto.dta", clear
 
 global ylist mpg
-global xlist weight1 price foreign
+global xlist weight1 length
 
 describe $ylist $xlist 
 summarize $ylist $xlist
@@ -34,6 +34,36 @@ Assumption #6: Your data must not show multicollinearity, which occurs when you 
 Assumption #7: There should be no significant outliers, high leverage points or highly influential points, which represent observations in your data set that are in some way unusual.
 Assumption #8: The residuals (errors) should be approximately normally distributed.
 */
+
+*Assumption #7: There should be no significant outliers, high leverage points or highly influential points, which represent observations in your data set that are in some way unusual.
+*check for mpg outliers
+
+*Let's plot a box plot
+graph box mpg weight1 length
+
+egen Q1_mpg= pctile(mpg), p(25)
+egen Q3_mpg= pctile(mpg), p(75)
+egen  IC_mpg= iqr(mpg)
+gen touse=1 if (mpg< Q1_mpg-1.5*IC_mpg| mpg> Q3_mpg+1.5*IC_mpg) & missing(mpg)==0
+recode touse . =0
+tab touse
+
+* or use extremes command as follows
+extremes mpg, iqr(1.5)
+
+*Drop the outliers
+drop if (mpg< Q1_mpg-1.5*IC_mpg | mpg> Q3_mpg+1.5*IC_mpg)
+
+*Assumption #3: You should have independence of observations (i.e., independence of residuals), which you can check in Stata using the Durbin-Watson statistic.
+//generate time variable
+gen t = _n
+tsset t
+
+*Run regression first before getting Durbin-Watson statistic as shown below
+* Simple regression 
+reg $ylist $xlist
+
+dwstat
 
 
 *Assumption #8: The residuals (errors) should be approximately normally distributed.
@@ -70,8 +100,7 @@ vif
 *Assumption #4: There needs to be a linear relationship between (a) the dependent variable and each of your independent variables, and (b) the dependent variable and the independent variables collectively. 
 *plot the standardized residuals against each of the predictor variables
 scatter ehat weight1
-scatter ehat price
-scatter ehat foreign
+scatter ehat length
 
 /*
 
